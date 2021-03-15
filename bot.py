@@ -1,15 +1,7 @@
 import discord
 from discord.ext import commands
-from discord.utils import get
-from keep_alive import keep_alive
-from discord.ext.commands import CommandNotFound
 import os
 import random
-import better_profanity
-from better_profanity import profanity
-import sqlite3
-import pymongo
-import json
 
 m = {}
 
@@ -695,5 +687,4 @@ Made By: HackMaster#1910""",
 #Name: *Speed Runner News*
 #Version: *V1.5*, Updated: 17/02/2021
 #Made By: *coolgamerdom223#0166*''')
-keep_alive()
-client.run(os.getenv('TOKEN'))
+client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.QwSO5_7E4lcBbEZpvOQosQhq5Bg")
