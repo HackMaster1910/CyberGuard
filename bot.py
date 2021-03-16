@@ -516,7 +516,6 @@ async def on_message(msg):
                     await msg.delete()
                     await msg.channel.send(
                         f"{msg.author.name} that word is not allowed! :0")
-    print("test")
     await client.process_commands(msg)
 
 
