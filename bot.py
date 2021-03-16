@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 import random
+import json
 
 m = {}
 
@@ -485,6 +486,7 @@ async def on_ready():
                                   name=f";help | {len(client.guilds)} servers")
     )
     print('We have logged in as {0.user}'.format(client))
+    client.load_extension("cogs.leveling")
 
 
 @client.event
