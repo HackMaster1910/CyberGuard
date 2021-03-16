@@ -10,6 +10,7 @@ def setup(client):
 
         @commands.Cog.listener()
         async def on_message(self, message):
+            print("test")
             with open("level.json", "r", encoding="utf8") as f:
                     user = json.load(f)
             try:
