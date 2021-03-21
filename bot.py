@@ -6,7 +6,7 @@ import json
 
 m = {}
 
-client = commands.Bot(command_prefix='/')
+client = commands.Bot(command_prefix=';')
 client.remove_command("help")
 
 filtered_words = [
@@ -476,7 +476,7 @@ filtered_words = [
     "yarpies", "yeasty", "yed", "yellow showers", "yellowman", "yellowshowers",
     "yid", "yids", "yiffy", "yobbo", "yourboobs", "yourpenis", "yourtits",
     "zabourah", "zigabo", "zigabos", "zipperhead", "zipperheads", "zoophile",
-    "zoophilia", "🖕","@everyone"
+    "zoophilia", "🖕"
 ]
 
 
@@ -513,7 +513,6 @@ async def status(ctx):
 
 @client.event
 async def on_message(msg):
-    if not (msg.author.name == "HackMaster" or "CyberGuard"):
             for word in filtered_words:
                 if word in msg.content:
                     await msg.delete()
@@ -690,4 +689,4 @@ Made By: HackMaster#1910""",
 #Name: *Speed Runner News*
 #Version: *V1.5*, Updated: 17/02/2021
 #Made By: *coolgamerdom223#0166*''')
-client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.QwSO5_7E4lcBbEZpvOQosQhq5Bg")
+client.run("ODE3NDkxMjY3ODcyODgyNzA4.YEKSEg.xsyBzZ4-MDY90qMPpR-mQP34z80")
