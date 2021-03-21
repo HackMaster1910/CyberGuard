@@ -6,7 +6,7 @@ import json
 
 m = {}
 
-client = commands.Bot(command_prefix=';')
+client = commands.Bot(command_prefix='/')
 client.remove_command("help")
 
 filtered_words = [
@@ -499,6 +499,9 @@ async def on_member_join(ctx):
 async def servernumber(ctx):
     await ctx.channel.send("I'm in " + str(client.guilds) + " servers!")
 
+#@client.command()
+#async def owner(ctx):
+   # if ctx.message_contains
 
 @client.command()
 async def status(ctx):
@@ -509,8 +512,6 @@ async def status(ctx):
 
 @client.event
 async def on_message(msg):
-    if not (msg.author.name == "HackMaster" or "Dom's Bot"):
-        if not (msg.author.discriminator == "0190" or "9264"):
             for word in filtered_words:
                 if word in msg.content:
                     await msg.delete()
