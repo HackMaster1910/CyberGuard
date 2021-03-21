@@ -7,7 +7,7 @@ import json
 m = {}
 
 client = commands.Bot(command_prefix=';')
-#client.remove_command("help")
+client.remove_command("help")
 
 filtered_words = [
     "breast", "2 girls 1 cup", "2g1c", "4r5e", "5h1t", "5hit", "5ht", "666",
@@ -486,7 +486,7 @@ async def on_ready():
                                   name=f";help | {len(client.guilds)} servers")
     )
     print('We have logged in as {0.user}'.format(client))
-    client.load_extension("cogs.leveling")
+    client.load_extension("cogs.help")
 
 
 @client.event
@@ -548,7 +548,7 @@ async def add_mute(ctx):
 
 @client.command()
 async def afk(ctx):
-    ctx.author.nick = f"[AFK] {ctx.author.name}"
+    ctx.nick = f"[AFK] {ctx.author.name}"
     await ctx.channel.send("Successfully changed your AFK!")
 
 
@@ -574,16 +574,16 @@ async def joke(ctx):
 @client.command()
 async def bot(ctx):
     await ctx.channel.send(
-        '**Invite me here**: https://discord.com/api/oauth2/authorize?client_id=814784481012482078&permissions=8&scope=bot'
+        '**Invite me here**: https://discord.com/oauth2/authorize?client_id=814784481012482078&permissions=4294832119&scope=bot%20applications.commands'
     )
     print("bot")
 
 
 @client.command()
 async def official(ctx):
-    if not (ctx.author.guild.name == "DOM'S PLACE"):
-        await ctx.channel.send("Here you go: https://discord.gg/RQu8wvEQ5T")
-    if (ctx.author.guild.name == "DOM'S PLACE"):
+    if not (ctx.author.guild.name == "CyberGuard Support"):
+        await ctx.channel.send("Here you go: https://discord.gg/VZx8EMX76h")
+    if (ctx.author.guild.name == "CyberGuard Support"):
         await ctx.channel.send("You are in the server silly.")
     print("bot")
 
@@ -646,28 +646,6 @@ async def ban(context, member: discord.Member, *, reason=None):
                        ' has been banned. For reason: ' + reason)
 
 
-@client.command()
-async def help(ctx):
-    print("help")
-    embed = discord.Embed(color=0x00ff0d,
-                          title="**These are the commands!**",
-                          description="All commands.")
-    embed.add_field(name=";help", value="Lists all commands.")
-    embed.add_field(name=";members", value="Stats for members.")
-    embed.add_field(name=";author", value="Your username.")
-    embed.add_field(name=";about", value="Information about the bot.")
-    embed.add_field(name=";bot", value="Invite the bot to your server.")
-    embed.add_field(name=";server", value="Server name.")
-    embed.add_field(name=";unmute", value="Unmutes a member.")
-    embed.add_field(name=";mute", value="Mutes a member.")
-    embed.add_field(name=";kick", value="Kicks a member.")
-    embed.add_field(name=";ban", value="Bans a member.")
-    embed.add_field(name=";joke", value="Tells a joke.")
-    embed.add_field(name=";status", value="Status of the bot.")
-    embed.add_field(name=";ping", value="Latency of the bot.")
-    embed.add_field(name=";official", value="The official server for the bot.")
-    embed.add_field(name=";user", value="Tells information about a user.")
-    await ctx.channel.send(content=None, embed=embed)
 
 
 @client.command()
@@ -678,7 +656,7 @@ async def about(ctx):
                           description="")
     embed.add_field(name=""" 
         Name: *CyberGuard*
-Version: V1.5, Updated: 17/02/2021
+Version: V5, Updated: 21/03/2021
 Made By: HackMaster#1910""",
                     value="---------------------------------------------")
     await ctx.channel.send(content=None, embed=embed)
