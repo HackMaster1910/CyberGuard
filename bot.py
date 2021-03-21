@@ -689,4 +689,4 @@ Made By: HackMaster#1910""",
 #Name: *Speed Runner News*
 #Version: *V1.5*, Updated: 17/02/2021
 #Made By: *coolgamerdom223#0166*''')
-client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.QwSO5_7E4lcBbEZpvOQosQhq5Bg")
+client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.G0dPbz8h8GYou09Dl4AhoCWqf84")
