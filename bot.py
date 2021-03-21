@@ -476,7 +476,7 @@ filtered_words = [
     "yarpies", "yeasty", "yed", "yellow showers", "yellowman", "yellowshowers",
     "yid", "yids", "yiffy", "yobbo", "yourboobs", "yourpenis", "yourtits",
     "zabourah", "zigabo", "zigabos", "zipperhead", "zipperheads", "zoophile",
-    "zoophilia", "🖕"
+    "zoophilia", "🖕","@everyone"
 ]
 
 
