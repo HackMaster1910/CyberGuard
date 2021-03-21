@@ -515,9 +515,7 @@ async def on_message(msg):
             for word in filtered_words:
                 if word in msg.content:
                     await msg.delete()
-                    await msg.channel.send(
-                        f"{msg.author.name} that word is not allowed! :0")
-    await client.process_commands(msg)
+                    await msg.channel.send(f"{msg.author.author} that word is not allowed!")
 
 
 @client.command()
