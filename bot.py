@@ -598,7 +598,7 @@ async def author(ctx):
 @client.command()
 async def server(ctx):
     await ctx.channel.send(f'Server Name: {ctx.author.guild}')
-    print("server")
+    
 
 
 @client.command()
