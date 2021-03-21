@@ -7,7 +7,7 @@ import json
 m = {}
 
 client = commands.Bot(command_prefix=';')
-client.remove_command("help")
+#client.remove_command("help")
 
 filtered_words = [
     "breast", "2 girls 1 cup", "2g1c", "4r5e", "5h1t", "5hit", "5ht", "666",
