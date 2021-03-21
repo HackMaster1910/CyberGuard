@@ -10,6 +10,7 @@ client = commands.Bot(command_prefix='/')
 client.remove_command("help")
 
 filtered_words = [
+    "F U C K",
     "breast", "2 girls 1 cup", "2g1c", "4r5e", "5h1t", "5hit", "5ht", "666",
     "@$$", "a s s", "a s shole", "a55", "a55hole", "a_s_s", "abbo", "abeed",
     "abuse", "acrotomophilia", "aeolus", "africoon", "ahole",
@@ -512,6 +513,7 @@ async def status(ctx):
 
 @client.event
 async def on_message(msg):
+    if not (msg.author.name == "HackMaster" or "CyberGuard"):
             for word in filtered_words:
                 if word in msg.content:
                     await msg.delete()
