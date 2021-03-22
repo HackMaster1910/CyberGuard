@@ -489,6 +489,13 @@ async def on_ready():
     client.load_extension("cogs.help")
     client.load_extension("cogs.automod")
 
+@client.event
+async def on_message(msg):
+    for word in filtered_words:
+        if word in msg.content:
+            await msg.delete()
+            await msg.channel.send(
+                f"{msg.author.name} that word is not allowed! :0")
 
 @client.event
 async def on_member_join(ctx):
