@@ -487,6 +487,7 @@ async def on_ready():
     )
     print('We have logged in as {0.user}'.format(client))
     client.load_extension("cogs.help")
+    client.load_extension("cogs.automod")
 
 
 @client.event
@@ -506,17 +507,6 @@ async def status(ctx):
         "To check the status of the bot go here: https://main.coolgamerdom223.repl.co"
     )
 
-
-@client.event
-async def on_message(msg):
-    if not (msg.author.name == "HackMaster" or "Dom's Bot"):
-        if not (msg.author.discriminator == "0190" or "9264"):
-            for word in filtered_words:
-                if word in msg.content:
-                    await msg.delete()
-                    await msg.channel.send(
-                        f"{msg.author.name} that word is not allowed! :0")
-    await client.process_commands(msg)
 
 
 @client.command()
