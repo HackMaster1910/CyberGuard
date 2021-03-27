@@ -3,7 +3,7 @@ from discord.ext import commands
 import os
 import random
 import json
-
+import time
 m = {}
 
 client = commands.Bot(command_prefix=';')
@@ -481,21 +481,23 @@ filtered_words = [
 
 @client.event
 async def on_ready():
-    await client.change_presence(
-        activity=discord.Activity(type=discord.ActivityType.watching,
-                                  name=f";help | {len(client.guilds)} servers")
-    )
     print('We have logged in as {0.user}'.format(client))
     client.load_extension("cogs.help")
     client.load_extension("cogs.automod")
+    client.load_extension("cogs.ball")
+    while True:
+        await client.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.watching,
+                                    name=f";help | {len(client.guilds)} servers")
+        )
 
-@client.event
-async def on_message(msg):
-    for word in filtered_words:
-        if word in msg.content:
-            await msg.delete()
-            await msg.channel.send(
-                f"{msg.author.name} that word is not allowed! :0")
+#@client.event
+#async def on_message(msg):
+  #  for word in filtered_words:
+#        if word in msg.content:
+    #        await msg.delete()
+    #        await msg.channel.send(
+      #          f"{msg.author.name} that word is not allowed! :0")
 
 @client.event
 async def on_member_join(ctx):
@@ -664,4 +666,4 @@ Made By: HackMaster#1910""",
 #Name: *Speed Runner News*
 #Version: *V1.5*, Updated: 17/02/2021
 #Made By: *coolgamerdom223#0166*''')
-client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.G0dPbz8h8GYou09Dl4AhoCWqf84")
+client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.sI0g3-PDVTaLopEInLVUAfasFbk")
