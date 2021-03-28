@@ -554,7 +554,7 @@ async def afk(ctx):
         return m.author.id == ctx.author.id and m.guild == ctx.guild
     message = await client.wait_for("message", check=check)
     await ctx.author.edit(nick=f"{ctx.author.name}")
-    await ctx.channel.send(f"Successfully removed your AFK! {ctx.author.mention}")
+    await message.channel.send(f"Successfully removed your AFK! {ctx.author.mention}")
 
 
 @client.command()
