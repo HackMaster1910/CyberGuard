@@ -548,8 +548,13 @@ async def add_mute(ctx):
 
 @client.command()
 async def afk(ctx):
-    ctx.nick = f"[AFK] {ctx.author.name}"
+    await ctx.author.edit(nick=f"[AFK] {ctx.author.name}")
     await ctx.channel.send("Successfully changed your AFK!")
+    def check(m):
+        return m.author.id == ctx.author.id
+    message = await client.wait_for("message", check=check)
+    await ctx.author.edit(nick=f"{ctx.author.name}")
+    await ctx.channel.send("Successfully removed your AFK!")
 
 
 @client.command()
