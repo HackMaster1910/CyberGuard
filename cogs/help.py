@@ -17,7 +17,9 @@ class HelpCommand(commands.Cog):
 		embed.add_field(
 			value='`joke`, `8ball`', name='Fun 🥳', inline=False)
 		embed.add_field(
-			value='`user`, `server`, `official`, `bot`, `members`, `ping`, `author`, `about`', name='Info ℹ', inline=False)
+			value='`user`, `server`, `members`, `author`', name='Info ℹ', inline=False)
+		embed.add_field(
+			value='`official`, `bot`, `ping`, `about`, `bug`', name='Bot 🤖', inline=False)
 		await ctx.send(embed=embed)
 
 

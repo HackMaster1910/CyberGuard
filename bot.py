@@ -485,6 +485,7 @@ async def on_ready():
     client.load_extension("cogs.help")
     client.load_extension("cogs.automod")
     client.load_extension("cogs.ball")
+    client.load_extension("cogs.bug")
     while True:
         await client.change_presence(
             activity=discord.Activity(type=discord.ActivityType.watching,
