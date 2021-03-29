@@ -549,12 +549,12 @@ async def add_mute(ctx):
 @client.command()
 async def afk(ctx):
     await ctx.author.edit(nick=f"[AFK] {ctx.author.name}")
-    await ctx.channel.send(f"Successfully changed your AFK! {ctx.author.mention}")
+    await ctx.channel.send(f"😀| Successfully changed your AFK! {ctx.author.mention}")
     def check(m):
         return m.author.id == ctx.author.id and m.guild == ctx.guild
     message = await client.wait_for("message", check=check)
     await ctx.author.edit(nick=f"{ctx.author.name}")
-    await message.channel.send(f"Successfully removed your AFK! {ctx.author.mention}")
+    await message.channel.send(f"😀| Successfully removed your AFK! {ctx.author.mention}")
 
 
 @client.command()
@@ -617,23 +617,32 @@ async def user(ctx, member: discord.Member):
     embed.add_field(name="Account age:", value=(member.created_at))
     await ctx.channel.send(content=None, embed=embed)
 
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def mute(ctx, member: discord.Member, *, reason=None):
+    guild = ctx.guild
+    mutedRole = discord.utils.get(guild.roles, name="Muted")
+
+    if not mutedRole:
+        mutedRole = await guild.create_role(name="Muted", hierarchy=100)
+
+        for channel in guild.channels:
+            await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
+
+    await member.add_roles(mutedRole, reason=reason)
+    await ctx.send(f"Muted {member.mention} for reason {reason}")
+    await member.send(f"You were muted in the server {guild.name} for {reason}")
+
 
 @client.command()
-async def mute(ctx, member: discord.Member, reason: str = None):
-    muted = discord.utils.get(ctx.guild.roles, name="Muted")
-    fans = discord.utils.get(ctx.guild.roles, name="Fans")
-    await member.add_roles(muted)
-    await member.remove_roles(fans)
-    await ctx.send(f"{member} has been muted.")
+@commands.has_permissions(manage_messages=True)
+async def unmute(ctx, member: discord.Member):
+    mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 
+    await member.remove_roles(mutedRole)
+    await ctx.send(f"Unmuted {member.mention}")
+    await member.send(f"You were unmuted in the server {ctx.guild.name}")
 
-@client.command()
-async def unmute(ctx, member: discord.Member, reason: str = None):
-    muted = discord.utils.get(ctx.guild.roles, name="Muted")
-    fans = discord.utils.get(ctx.guild.roles, name="Fans")
-    await member.add_roles(fans)
-    await member.remove_roles(muted)
-    await ctx.send(f"{member} has been unmuted.")
 
 
 @client.command(name="kick", pass_context=True)
@@ -641,6 +650,7 @@ async def unmute(ctx, member: discord.Member, reason: str = None):
 async def Kick(context, member: discord.Member):
     await member.kick()
     await context.send('User ' + member.display_name + ' has been kicked.')
+    await member.send(f'You have been kicked from {context.guild}!')
 
 
 @client.command(name="ban", pass_context=True)
@@ -649,6 +659,7 @@ async def ban(context, member: discord.Member, *, reason=None):
     await member.ban(reason=reason)
     await context.send('User ' + member.display_name +
                        ' has been banned. For reason: ' + reason)
+    await member.send(f'You have been banned from {context.guild} for the reason of: {reason}!')
 
 
 
@@ -661,7 +672,7 @@ async def about(ctx):
                           description="")
     embed.add_field(name=""" 
         Name: *CyberGuard*
-Version: V5, Updated: 21/03/2021
+Version: V6, Updated: 21/03/2021
 Made By: HackMaster#1910""",
                     value="---------------------------------------------")
     await ctx.channel.send(content=None, embed=embed)
