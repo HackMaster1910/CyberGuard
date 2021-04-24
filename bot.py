@@ -4,10 +4,13 @@ import os
 import random
 import json
 import time
+import pymongo
+from pymongo import MongoClient
+from discord.ext import ipc
 m = {}
 
-client = commands.Bot(command_prefix=';')
-client.remove_command("help")
+
+
 
 filtered_words = [
     "breast", "2 girls 1 cup", "2g1c", "4r5e", "5h1t", "5hit", "5ht", "666",
@@ -477,8 +480,23 @@ filtered_words = [
     "zabourah", "zigabo", "zigabos", "zipperhead", "zipperheads", "zoophile",
     "zoophilia", "🖕"
 ]
+class MyBot(commands.Bot):
+
+	def __init__(self,*args,**kwargs):
+		super().__init__(*args,**kwargs)
+
+		self.ipc = ipc.Server(self,secret_key = "Swas")
 
 
+	async def on_ipc_ready(self):
+		"""Called upon the IPC Server being ready"""
+		print("Ipc server is ready.")
+
+	async def on_ipc_error(self, endpoint, error):
+		"""Called upon an error being raised within an IPC route"""
+		print(endpoint, "raised", error)
+client = MyBot(command_prefix=";", intents = discord.Intents.default())
+client.remove_command("help")
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
@@ -486,11 +504,23 @@ async def on_ready():
     client.load_extension("cogs.automod")
     client.load_extension("cogs.ball")
     client.load_extension("cogs.bug")
+    client.load_extension("cogs.leveling")
     while True:
         await client.change_presence(
             activity=discord.Activity(type=discord.ActivityType.watching,
                                     name=f";help | {len(client.guilds)} servers")
         )
+
+@client.ipc.route()
+async def get_guild_count(data):
+	return len(my_bot.guilds) # returns the len of the guilds to the client
+
+@client.ipc.route()
+async def get_guild_ids(data):
+	final = []
+	for guild in my_bot.guilds:
+		final.append(guild.id)
+	return final # returns the guild ids to the client
 
 #@client.event
 #async def on_message(msg):
@@ -633,6 +663,17 @@ async def mute(ctx, member: discord.Member, *, reason=None):
     await ctx.send(f"Muted {member.mention} for reason {reason}")
     await member.send(f"You were muted in the server {guild.name} for {reason}")
 
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def unban(ctx, *, member):
+    banned_users = await ctx.guild.bans()
+    member_name, member_discriminator = member.split('#')
+    for ban_entry in banned_users:
+        user = ban_entry.user
+        if (user.name, user.discriminator) == (member_name, member_discriminator):
+            await ctx.guild.unban(user)
+            await ctx.channel.send(f"Succesfully unbanned user!")
+            return
 
 @client.command()
 @commands.has_permissions(manage_messages=True)

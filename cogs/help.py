@@ -14,7 +14,7 @@ class HelpCommand(commands.Cog):
 			name='Utilitys 🧰', 
 			inline=False)
 		embed.add_field(
-			value='`kick`, `ban`', 
+			value='`kick`, `ban`,`unban`', 
 			name='Moderator ⛏', 
 			inline=False)
 		embed.add_field(
