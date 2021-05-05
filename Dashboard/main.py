@@ -4,9 +4,9 @@ import discord
 from discord.ext import ipc
 
 app = Quart(__name__)
-ipc_client = ipc.Client(secret_key = "Swas")
+ipc_client = ipc.Client(secret_key = "CyberGuard1999")
 
-app.config["SECRET_KEY"] = "test123"
+app.config["SECRET_KEY"] = "CyberGuard1999"
 app.config["DISCORD_CLIENT_ID"] = 814784481012482078   # Discord client ID.
 app.config["DISCORD_CLIENT_SECRET"] = "emdSrRwg29RhBja62heqIiHJpZCfQdQd"   # Discord client secret.
 app.config["DISCORD_REDIRECT_URI"] = "http://127.0.0.1:5000/callback"   
@@ -29,7 +29,7 @@ async def callback():
 		return redirect(url_for("login"))
 
 	user = await discord.fetch_user()
-	return redirect(url_for("dashboard")) #f"{user.name}#{user.discriminator}" #You should return redirect(url_for("dashboard")) here
+	return redirect(url_for("dashboard")) #f"User: {user.name}#{user.discriminator} Email: {user.email}" #You should return redirect(url_for("dashboard")) here
 
 @app.route("/dashboard")
 async def dashboard():
@@ -47,8 +47,8 @@ async def dashboard():
 		if guild.id in guild_ids:
 			same_guilds.append(guild)
 
-
-	return await render_template("dashboard.html", guild_count = guild_count, matching = same_guilds)
+	user = await discord.fetch_user()
+	return await render_template("dashboard.html", guild_count = guild_count, matching = same_guilds, user_id=user.id)
 
 if __name__ == "__main__":
 	app.run(debug=True)

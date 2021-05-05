@@ -485,7 +485,7 @@ class MyBot(commands.Bot):
 	def __init__(self,*args,**kwargs):
 		super().__init__(*args,**kwargs)
 
-		self.ipc = ipc.Server(self,secret_key = "Swas")
+		self.ipc = ipc.Server(self,secret_key = "CyberGuard1999")
 
 
 	async def on_ipc_ready(self):
@@ -495,6 +495,7 @@ class MyBot(commands.Bot):
 	async def on_ipc_error(self, endpoint, error):
 		"""Called upon an error being raised within an IPC route"""
 		print(endpoint, "raised", error)
+
 client = MyBot(command_prefix=";", intents = discord.Intents.default())
 client.remove_command("help")
 @client.event
@@ -505,6 +506,8 @@ async def on_ready():
     client.load_extension("cogs.ball")
     client.load_extension("cogs.bug")
     client.load_extension("cogs.leveling")
+    client.load_extension("cogs.music")
+    client.load_extension("cogs.currency")
     while True:
         await client.change_presence(
             activity=discord.Activity(type=discord.ActivityType.watching,
@@ -513,22 +516,25 @@ async def on_ready():
 
 @client.ipc.route()
 async def get_guild_count(data):
-	return len(my_bot.guilds) # returns the len of the guilds to the client
-
+    return len(client.guilds)
+    
 @client.ipc.route()
 async def get_guild_ids(data):
 	final = []
-	for guild in my_bot.guilds:
+	for guild in client.guilds:
 		final.append(guild.id)
-	return final # returns the guild ids to the client
+
+	return final
 
 #@client.event
 #async def on_message(msg):
-  #  for word in filtered_words:
+#    if msg.author.bot:
+#        return
+
+#    for word in filtered_words:
 #        if word in msg.content:
-    #        await msg.delete()
-    #        await msg.channel.send(
-      #          f"{msg.author.name} that word is not allowed! :0")
+#            await msg.delete()
+#            await msg.channel.send(f"{msg.author.mention} that word is not allowed! :0", delete_after=5)
 
 @client.event
 async def on_member_join(ctx):
@@ -724,4 +730,6 @@ Made By: HackMaster#1910""",
 #Name: *Speed Runner News*
 #Version: *V1.5*, Updated: 17/02/2021
 #Made By: *coolgamerdom223#0166*''')
+client.ipc.start()
 client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.sI0g3-PDVTaLopEInLVUAfasFbk")
+

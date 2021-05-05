@@ -10,6 +10,18 @@ class HelpCommand(commands.Cog):
 	async def help(self, ctx):
 		embed = discord.Embed(color=0xFF0000, name = "Commands Help")
 		embed.add_field(
+			value='`rank`', 
+			name='Levelling 🔢', 
+			inline=False)
+		embed.add_field(
+			value='`work`, `balance`, `give`', 
+			name='Currency 💰', 
+			inline=False)
+		embed.add_field(
+			value='`connect`, `play`, `pause`, `stop`, `resume`, `now_playing`, `queue`,`volume`', 
+			name='Music 🎵', 
+			inline=False)
+		embed.add_field(
 			value='`afk`,`user`', 
 			name='Utilitys 🧰', 
 			inline=False)
