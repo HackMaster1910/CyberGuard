@@ -113,3 +113,4 @@ class currencysys(commands.Cog):
 
 def setup(client):
     client.add_cog(currencysys(client))
+    

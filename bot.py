@@ -7,6 +7,7 @@ import time
 import pymongo
 from pymongo import MongoClient
 from discord.ext import ipc
+from discord_components.client import DiscordComponents
 m = {}
 
 
@@ -500,14 +501,22 @@ client = MyBot(command_prefix=";", intents = discord.Intents.default())
 client.remove_command("help")
 @client.event
 async def on_ready():
+    DiscordComponents(client)
     print('We have logged in as {0.user}'.format(client))
     client.load_extension("cogs.help")
+    print("Loaded help!")
     client.load_extension("cogs.automod")
+    print("Loaded automod!")
     client.load_extension("cogs.ball")
+    print("Loaded ball!")
     client.load_extension("cogs.bug")
+    print("Loaded bug!")
     client.load_extension("cogs.leveling")
+    print("Loaded leveling!")
     client.load_extension("cogs.music")
+    print("Loaded music!")
     client.load_extension("cogs.currency")
+    print("Loaded currency!")
     while True:
         await client.change_presence(
             activity=discord.Activity(type=discord.ActivityType.watching,
@@ -525,6 +534,19 @@ async def get_guild_ids(data):
 		final.append(guild.id)
 
 	return final
+
+@client.ipc.route()
+async def get_guild(data):
+	guild = client.get_guild(data.guild_id)
+	if guild is None: return None
+
+	guild_data = {
+		"name": guild.name,
+		"id": guild.id,
+		"prefix" : "?"
+	}
+
+	return guild_data
 
 #@client.event
 #async def on_message(msg):
@@ -563,6 +585,21 @@ async def ping(ctx):
         description=f"The bot's latency is {round(client.latency * 1000)}ms!")
     await ctx.channel.send(content=None, embed=embed)
 
+@client.command()
+async def load(ctx, extension):
+    if ctx.author.id == 700680580001431662:
+                client.load_extension(f"cogs.{extension}")
+                await ctx.channel.send(f"Succesfully enabled {extension}!")
+                print(f"Loaded {extension}!")
+                return
+
+@client.command()
+async def unload(ctx, extension):
+    if ctx.author.id == 700680580001431662:
+                client.unload_extension(f"cogs.{extension}")
+                await ctx.channel.send(f"Succesfully disabled {extension}!")
+                print(f"Unloaded {extension}!")
+                return
 
 #bans a user with a reason
 @client.command()
@@ -670,7 +707,7 @@ async def mute(ctx, member: discord.Member, *, reason=None):
     await member.send(f"You were muted in the server {guild.name} for {reason}")
 
 @client.command()
-@commands.has_permissions(kick_members=True)
+@commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split('#')
@@ -701,7 +738,7 @@ async def Kick(context, member: discord.Member):
 
 
 @client.command(name="ban", pass_context=True)
-@commands.has_permissions(kick_members=True)
+@commands.has_permissions(ban_members=True)
 async def ban(context, member: discord.Member, *, reason=None):
     await member.ban(reason=reason)
     await context.send('User ' + member.display_name +
