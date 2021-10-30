@@ -768,5 +768,5 @@ Made By: HackMaster#1910""",
 #Version: *V1.5*, Updated: 17/02/2021
 #Made By: *coolgamerdom223#0166*''')
 client.ipc.start()
-client.run("ODE0Nzg0NDgxMDEyNDgyMDc4.YDi5Lg.sI0g3-PDVTaLopEInLVUAfasFbk")
+client.run("[TOKEN REMOVED FOR SECURITY]", bot=True)
 
